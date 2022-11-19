@@ -1,0 +1,42 @@
+@name Aim Reticle
+@inputs Gun:entity
+@persist Ranger:ranger Angles:angle
+
+runOnTick(1)    
+
+rangerHitEntities(1)
+rangerFilter(Gun)
+
+Ranger = rangerOffset( 10000, Gun:pos(), Gun:forward() )
+
+Angles = ang(Gun:angles():roll(), Gun:angles():yaw() + 90,  Gun:angles():pitch())
+
+holoPos( 1, Ranger:position())
+holoAng( 1, Angles)
+holoPos( 2, Ranger:position())
+holoAng( 2, Angles)
+
+if( first() | dupefinished() ){ 
+
+    HPE = entity() 
+
+    HoloID = 1
+    holoCreate( HoloID ) 
+    holoAlpha( HoloID, 255 )
+    holoAlpha( HoloID, 255 )
+    holoMaterial( HoloID, "Zell_material_pack/mramor_zell" ) 
+    holoParent( HoloID, HPE ) 
+    holoModel( 1, "models/sprops/geometry/sphere_9.mdl" )
+    holoColor( 1, vec(225, 255, 0))
+    
+    HoloID = 2
+    holoCreate( HoloID )
+    holoAlpha( HoloID, 255 ) 
+    holoAlpha( HoloID, 255 ) 
+    holoMaterial( HoloID, "Zell_material_pack/mramor_zell" ) 
+    holoParent( HoloID, HPE ) 
+    holoModel( 2, "models/sprops/misc/tubes/size_2/tube_24x6.mdl" )
+    holoColor(2, vec(225, 255, 0))
+}
+
+ 
