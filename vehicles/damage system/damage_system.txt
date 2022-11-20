@@ -1,0 +1,98 @@
+@name Vehicle Damage System
+@inputs  [Damage Clk Reset Active]:number
+@outputs [Active Alive Hud HideHUD]:number
+@outputs [ScreenInfo]:string
+@outputs [FGcolor BGcolor]:vector
+@persist [TotalHealth Health50 Health25 Health0]:number
+
+### Setup ###
+
+runOnTick(1)
+if(first()|duped()|dupefinished())
+{
+    Alive = 1
+    TotalHealth  = 100
+    Health50  = 50
+    Health25  = 25
+    Health0   = 0
+}
+if(~Reset)
+{
+    reset()
+}
+
+### Damage Counter ###
+
+if(~Clk)
+{
+    TotalHealth -= Damage
+}
+if(TotalHealth < Health0)
+{
+    Alive = 0
+}
+
+### Displays ###
+
+    ### Hud Indicator ###
+    
+        Hud = TotalHealth
+        if(Active == 1)
+        {
+            HideHUD = 0
+        }
+        else
+        {
+            HideHUD = 1
+        }
+    
+    ### Text Screen ###
+    
+        ### 100% - 50% ###
+        if(TotalHealth > Health50)
+        {
+        ScreenInfo = "Health: "+TotalHealth+""
+        FGcolor = vec(255,255,255)
+        BGcolor = vec(0,0,0)
+        }
+        ### 50% - 25% ###
+        if(TotalHealth <= Health50 && TotalHealth > Health25)
+        {
+        ScreenInfo = "Health: "+TotalHealth+" CAUTION"
+        FGcolor = vec(255,255,0)
+        BGcolor = vec(0,0,0)
+        }
+        ### 25% - 0% ###
+        if(TotalHealth <= Health25 && TotalHealth > Health0)
+        {
+        ScreenInfo = "Health: "+TotalHealth+" DANGER"
+        FGcolor = vec(255,0,0)
+        BGcolor = vec(0,0,0)
+        }
+        ### 0% ###
+        if(TotalHealth <= Health0)
+        {
+        ScreenInfo = "ERROR: CRITICAL FAILURE"
+        FGcolor = vec(255,255,255)
+        BGcolor = vec(255,0,0)
+        Alive = 0
+        }
+
+### Notes ###
+#1: Connect outputs "[Damage Clk]:number" to a wire damage detector, then link damage detector to vehicle props and "on" variable to constant value "1" chip.
+#2: Persist variable "TotalHealth" dictates how much damage can be taken before vehicle is destroyed.
+#3: "Health50" = 50% health, "Health25" = 25% health, "Health0" = 0% health.
+#4: Connect chip to either a wire text screen or a wire hud indicator for visuals.
+#5: Link "Active" to pod controller.
+#
+# Hud Indicator Recommended Settings:
+# -"A value" = 0, "B value" = TotalHealth.
+# -"A color" = red, "B color" = green.
+# -"Rotate Segment 90 Degrees" - yes
+# -"Show In My Hud" - yes
+# -"Description" = "Health"
+# -"Hud Style" = percent
+# -"Show Value As:" - percent
+# -"Hud x" = 22, "Hud y" = 200.
+#
+#{SKJ} https://github.com/ScriptKittyJane/Gmod-E2-Code
