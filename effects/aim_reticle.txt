@@ -2,41 +2,52 @@
 @inputs Gun:entity
 @persist Ranger:ranger Angles:angle
 
+### Setup ###
+
 runOnTick(1)    
+
+### Ranger ###
 
 rangerHitEntities(1)
 rangerFilter(Gun)
-
 Ranger = rangerOffset( 10000, Gun:pos(), Gun:forward() )
-
 Angles = ang(Gun:angles():roll(), Gun:angles():yaw() + 90,  Gun:angles():pitch())
+
+### Holos ###
 
 holoPos( 1, Ranger:position())
 holoAng( 1, Angles)
 holoPos( 2, Ranger:position())
 holoAng( 2, Angles)
 
-if( first() | dupefinished() ){ 
-
-    HPE = entity() 
-
-    HoloID = 1
-    holoCreate( HoloID ) 
-    holoAlpha( HoloID, 255 )
-    holoAlpha( HoloID, 255 )
-    holoMaterial( HoloID, "Zell_material_pack/mramor_zell" ) 
-    holoParent( HoloID, HPE ) 
-    holoModel( 1, "models/sprops/geometry/sphere_9.mdl" )
+if( first() | dupefinished() )
+{
+    ### Initializes Holos ###
+    holoCreate( 1 )
+    holoCreate( 2 )
+    ### Sets Transparency ###
+    holoAlpha( 1, 255 )
+    holoAlpha( 2, 255 )
+    ### Sets Colors ###
     holoColor( 1, vec(225, 255, 0))
-    
-    HoloID = 2
-    holoCreate( HoloID )
-    holoAlpha( HoloID, 255 ) 
-    holoAlpha( HoloID, 255 ) 
-    holoMaterial( HoloID, "Zell_material_pack/mramor_zell" ) 
-    holoParent( HoloID, HPE ) 
+    holoColor( 2, vec(225, 255, 0))
+    ### Sets Materials ###
+    holoMaterial( 1, "models/debug/debugwhite" )
+    holoMaterial( 2, "models/debug/debugwhite" )
+    ### Sets Models ###
+    holoModel( 1, "models/sprops/geometry/sphere_9.mdl" )
     holoModel( 2, "models/sprops/misc/tubes/size_2/tube_24x6.mdl" )
-    holoColor(2, vec(225, 255, 0))
+    ### Parents Holos To Emitter ###
+    holoParent( 1, Gun )
+    holoParent( 2, Gun )
 }
 
- 
+### Notes ###
+#1: Premade Reticle Is made with SProps entities. Replace them by selecting desired props in Q menu and right clicking them, then click "copy" -
+# : and pase the result over the directory strings in "HoloModel" 1 and 2.
+#2: "Ranger" draws a line from the "aimpos" of the "Gun" entity, returning a vector coordinate of where it hits as "Ranger:position()"
+#3: "Angles" Is for adjusting the relative angle the props hold to the "Gun" entity, adjust as needed for custom crosshairs.
+#4: Not all wiremod turrets shoot directly to the "Gun:forward()" trace, using the Grav. Gun model is recommended.
+#5: The holos will not render on the top layer, so using oddly shaped props may make them render inside of map geometry.
+#
+#{SKJ} https://github.com/ScriptKittyJane/Gmod-E2-Code
