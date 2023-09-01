@@ -44,7 +44,7 @@ if( first() | dupefinished() )
 
 ### Notes ###
 #1: Premade Reticle Is made with SProps entities. Replace them by selecting desired props in Q menu and right clicking them, then click "copy" -
-# : and pase the result over the directory strings in "HoloModel" 1 and 2.
+# : and paste the result over the directory strings in "HoloModel" 1 and 2.
 #2: "Ranger" draws a line from the "aimpos" of the "Gun" entity, returning a vector coordinate of where it hits as "Ranger:position()"
 #3: "Angles" Is for adjusting the relative angle the props hold to the "Gun" entity, adjust as needed for custom crosshairs.
 #4: Not all wiremod turrets shoot directly to the "Gun:forward()" trace, using the Grav. Gun model is recommended.
