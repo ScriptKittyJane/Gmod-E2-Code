@@ -1,0 +1,31 @@
+@name Gatling Gun PartPosition - {SKJ}
+@inputs  [Reset]:number
+@inputs  [Baseplate Disc RotDisc GunBlock Turret Emitter Indicator Hud]:entity
+
+### Notes ###--------------------------------------------------------------------------------------------------------------
+#1: Chip handles keeping the different props within the turret in alignment
+#
+#{SKJ} https://github.com/ScriptKittyJane/Gmod-E2-Code
+
+### Setup ###--------------------------------------------------------------------------------------------------------------
+runOnTick(10)
+
+if(Reset==1 && ~Reset) 
+{
+    reset()
+}
+
+#SetPos
+Disc:setPos(Baseplate:toWorld(vec(0,0,40.625)))
+GunBlock:setPos(Disc:toWorld(vec(0,0,12.625)))
+Hud:setPos(Disc:toWorld(vec(0,0,10)))
+RotDisc:setPos(GunBlock:toWorld(vec(0,0,0)))
+Turret:setPos(GunBlock:toWorld(vec(30,0,-6)))
+Emitter:setPos(GunBlock:toWorld(vec(15,-4.5,-6)))
+Indicator:setPos(GunBlock:toWorld(vec(10.6875,-5.03125,3.03125)))
+#SetAng
+Turret:setAng(GunBlock:toWorld(ang(0,0,0)))
+Emitter:setAng(GunBlock:toWorld(ang(-45,90,0)))
+Indicator:setAng(GunBlock:toWorld(ang(90,0,0)))
+
+###{SKJ}###----------------------------------------------------------------------------------------------------------------

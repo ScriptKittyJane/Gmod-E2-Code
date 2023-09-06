@@ -1,0 +1,84 @@
+@name Gatling Gun Firemode & Aiming - {SKJ} 
+@inputs  [Reset Mode Debug Alive]:number
+@inputs  [Disc RotDisc GunBlock BasePlate]:entity
+@outputs [Fire TargetLiving]:number
+@persist [Ang]:number
+@persist [Target]:entity
+@persist [OwnViewAng AutoViewAng]:angle
+
+### Notes ###--------------------------------------------------------------------------------------------------------------
+#1: Chip handles the aiming and firing of the sentry gun, both automatic and manual fire
+#
+#{SKJ} https://github.com/ScriptKittyJane/Gmod-E2-Code
+
+### Setup ###--------------------------------------------------------------------------------------------------------------
+runOnTick(10)
+
+if(Reset==1 && ~Reset) 
+    {reset()}
+if(first()|dupefinished())
+    {Fire=0,Ang=0}
+if(Fire==1)
+    {Ang=Ang+5}#Number dictates rotation speed.
+
+if(Debug==1)
+{   if(first())
+    {
+        holoCreate(1)
+        holoModel(1,"models/sprops/geometry/fring_36.mdl")
+        holoAng(1,ang(0,0,90))
+    }
+    holoPos(1,Target:pos()+Target:boxCenter())
+}
+
+if(Alive==1)
+{
+### Auto Mode ###----------------------------------------------------------------------------------------------------------
+	if(Mode==0)
+	{
+		findInSphere(GunBlock:pos(),500)
+		findIncludeClass("npc")
+		Target=findClosest(GunBlock:pos())
+		TargetLiving=Target:isAlive()
+		
+		AutoViewAng=((Target:pos()+Target:boxCenter())-GunBlock:pos()):toAngle()
+		if(TargetLiving==1)
+		{
+			Disc:setAng((BasePlate:toWorld(ang(0,AutoViewAng:yaw(),0))))
+			GunBlock:setAng(ang(AutoViewAng:pitch(),AutoViewAng:yaw(),BasePlate:angles():roll()))
+			RotDisc:setAng(ang(AutoViewAng:pitch(),AutoViewAng:yaw(),Ang))
+			Fire=1
+		}
+		else
+		{
+			Disc:setAng((BasePlate:toWorld(ang(0,0,0))))
+			GunBlock:setAng(BasePlate:toWorld(ang(0,0,0)))
+			RotDisc:setAng(BasePlate:toWorld(ang(0,0,Ang)))
+			Fire=0
+		}
+	}
+
+### Manual Mode ###--------------------------------------------------------------------------------------------------------
+	if(Mode==1)
+	{
+		OwnViewAng=(owner():aimPos()-GunBlock:pos()):toAngle()
+		Disc:setAng(ang(BasePlate:angles():pitch(),OwnViewAng:yaw(),0))
+		GunBlock:setAng(ang(OwnViewAng:pitch(),OwnViewAng:yaw(),0))
+		RotDisc:setAng(ang(OwnViewAng:pitch(),OwnViewAng:yaw(),Ang))
+		if(owner():weapon():type()=="none"|owner():weapon():type()=="weapon_empty_hands")
+			{if(owner():keyAttack1())
+				{Fire=1}
+			else
+				{Fire=0}}
+	}
+
+}
+else   ### Dead ###--------------------------------------------------------------------------------------------------------
+{
+    Fire=0
+    Disc:setAng((BasePlate:toWorld(ang(0,0,0))))
+    GunBlock:setAng((BasePlate:toWorld(ang(45,0,0))))
+    RotDisc:setAng((BasePlate:toWorld(ang(45,0,0))))
+}
+
+###{SKJ}###----------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,94 @@
+@name Gatling Gun Soundboard - {SKJ}
+@inputs  [Reset Fire Mode TargetLock Damage Dead]:number
+@inputs  [Speaker]:entity
+@outputs [Randint Emitter Effect Delay]:number
+@persist [DamSound]:string
+
+### Notes ###--------------------------------------------------------------------------------------------------------------
+#1: Chip handles both world sounds and player hud information
+#2: [Speaker]:entity is where the audio is played from in 3D space
+#3: Use [Reset]:number to purge all sound in case of emergency
+#
+#{SKJ} https://github.com/ScriptKittyJane/Gmod-E2-Code
+
+### Setup ###--------------------------------------------------------------------------------------------------------------
+if(Reset==1 && ~Reset) 
+{
+    hint("System Reset",2)
+    soundPurge()
+    reset()
+}
+if(first()|dupefinished())
+{
+    Fire=0
+    Reset=0
+}
+
+### Sound ###--------------------------------------------------------------------------------------------------------------
+    #Setup
+        if(first()|dupefinished())
+        {
+            soundStop(2)
+            soundStop(3)
+            Speaker:soundPlay(1,4,"Building_Sentrygun.Built")
+            soundVolume(1,1)
+            Effect=9
+        }
+    #TargetLock
+        if(TargetLock==1&&~TargetLock&&Mode==0)
+        {
+            soundStop(1)
+            Speaker:soundPlay(2,4,"Building_Sentrygun.AlertTarget")
+            soundVolume(2,1)
+        }
+    #Gunfire
+        if(Fire==1)
+        {
+            Speaker:soundPlay(3,240,"Weapon_Minigun.Fire")
+            soundVolume(3,0.75)
+            Emitter=1
+            Delay=0.1
+        }
+    #WindDown
+        if(Fire==0&&~Fire&&!first())
+        {
+            soundStop(3)
+            Speaker:soundPlay(4,4,"Weapon_Minigun.WindDown")
+            soundVolume(4,0.75)
+            Emitter=0
+        }
+    #Damaged
+        if(~Damage)
+        {
+            Randint=randint(1,3)  #Selects a sound string from the 3 listed below at random
+            if(Randint==1){DamSound="Building_Sentrygun.Build9"}        #Bang
+            if(Randint==2){DamSound="Building_SentryGun.RocketClunk2"}  #Clunk
+            if(Randint==3){DamSound="Building_SentryGun.Build1"}        #Pow
+            Speaker:soundPlay(5,4,DamSound)
+            soundVolume(5,1)
+        }
+    #Dead
+        if(Dead==0&&~Dead)
+        {
+            Speaker:soundPlay(6,4,"Building_Sentry.Explode")
+            soundVolume(6,1)
+            Effect=10
+            Emitter=1
+            Delay=1
+        }
+
+### Hints ###--------------------------------------------------------------------------------------------------------------
+if(Mode==0&&~Mode)
+{
+    hint("NPC Auto Target Mode",2)
+}
+if(Mode==1&&~Mode)
+{
+    hint("Manual Fire Mode",2)
+}
+if(Dead==0&&~Dead)
+{
+    hint("Sentry CND Critical: Shutting down.",10)
+}
+
+###{SKJ}###----------------------------------------------------------------------------------------------------------------

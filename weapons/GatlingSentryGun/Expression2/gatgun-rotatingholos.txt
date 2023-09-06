@@ -1,0 +1,345 @@
+@name Gatling Gun Rotating Holos - {SKJ}
+@inputs [Reset Debug]:number
+@inputs [RotDisc]:entity
+
+### Notes ###--------------------------------------------------------------------------------------------------------------
+#1: Chip handles spawning and parenting the holos that make up the rotating barrel
+#
+#{SKJ} https://github.com/ScriptKittyJane/Gmod-E2-Code
+
+### Setup ###--------------------------------------------------------------------------------------------------------------
+
+if(Reset==1 && ~Reset) 
+{
+    holoDeleteAll()
+    reset()
+}
+
+### Barrels ### -----------------------------------------------------------------------------------------------------------
+if( first() | dupefinished() )
+{
+    #Barrel-1
+        #Tube
+            holoCreate(101)
+            holoModel(101,"models/props_lab/pipesystem02b.mdl")
+            holoAng(101,RotDisc:toWorld(ang(90,0,0)))
+            holoPos(101,RotDisc:toWorld(vec(29.75,0,2.74)))
+            holoMaterial(101,"gigaconvertedmats/metalstainless01")
+            holoColor(101,vec(183,183,183))
+            holoParent(101,RotDisc)
+        #Cap
+            holoCreate(102)
+            holoModel(102,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(102,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(102,RotDisc:toWorld(vec(58,0,2.74)))
+            holoMaterial(102,"gigaconvertedmats/metalcrate004d")
+            holoColor(102,vec(183,183,183))
+            holoScale(102,vec(1.5,1.5,1.5))
+            holoParent(102,RotDisc )
+        #Brace
+            holoCreate(103)
+            holoModel(103,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(103,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(103,RotDisc:toWorld(vec(40,0,2.74)))
+            holoMaterial(103,"gigaconvertedmats/metalfloor001a")
+            holoScale(103,vec(1.25,1.25,3))
+            holoParent(103,RotDisc )
+        #Debug  
+        if(Debug==1)
+            {
+                holoCreate(100)
+                holoModel(100,"models/sprops/misc/alphanum/alphanum_1.mdl")
+                holoAng(100,RotDisc:toWorld(ang(0,-90,0)))
+                holoPos(100,RotDisc:toWorld(vec(58,0,7)))
+                holoParent(100,RotDisc)
+                holoScale(100,vec(0.25,0.25,0.25))
+            }
+    #Barrel-2
+        #Tube
+            holoCreate(121)
+            holoModel(121,"models/props_lab/pipesystem02b.mdl")
+            holoAng(121,RotDisc:toWorld(ang(90,0,0)))
+            holoPos(121,RotDisc:toWorld(vec(29.75,-1.78,1.874)))
+            holoMaterial(121,"gigaconvertedmats/metalstainless01")
+            holoColor(121,vec(183,183,183))
+            holoParent(121,RotDisc)
+        #Cap
+            holoCreate(122)
+            holoModel(122,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(122,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(122,RotDisc:toWorld(vec(58,-1.78,1.874)))
+            holoMaterial(122,"gigaconvertedmats/metalcrate004d")
+            holoColor(122,vec(183,183,183))
+            holoScale(122,vec(1.5,1.5,1.5))
+            holoParent(122,RotDisc )
+        #Brace
+            holoCreate(123)
+            holoModel(123,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(123,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(123,RotDisc:toWorld(vec(40,-1.78,1.874)))
+            holoMaterial(123,"gigaconvertedmats/metalfloor001a")
+            holoScale(123,vec(1.25,1.25,3))
+            holoParent(123,RotDisc )
+        #Debug  
+        if(Debug==1)
+            {
+                holoCreate(120)
+                holoModel(120,"models/sprops/misc/alphanum/alphanum_2.mdl")
+                holoAng(120,RotDisc:toWorld(ang(40,-90,0)))
+                holoPos(120,RotDisc:toWorld(vec(58,-4,5)))
+                holoParent(120,RotDisc)
+                holoScale(120,vec(0.25,0.25,0.25))
+            }
+    #Barrel-3
+        #Tube
+            holoCreate(131)
+            holoModel(131,"models/props_lab/pipesystem02b.mdl")
+            holoAng(131,RotDisc:toWorld(ang(90,0,0)))
+            holoPos(131,RotDisc:toWorld(vec(29.75,-2.74,0)))
+            holoMaterial(131,"gigaconvertedmats/metalstainless01")
+            holoColor(131,vec(183,183,183))
+            holoParent(131,RotDisc)
+        #Cap
+            holoCreate(132)
+            holoModel(132,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(132,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(132,RotDisc:toWorld(vec(58,-2.74,0)))
+            holoMaterial(132,"gigaconvertedmats/metalcrate004d")
+            holoColor(132,vec(183,183,183))
+            holoScale(132,vec(1.5,1.5,1.5))
+            holoParent(132,RotDisc )
+        #Brace
+            holoCreate(133)
+            holoModel(133,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(133,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(133,RotDisc:toWorld(vec(40,-2.74,0)))
+            holoMaterial(133,"gigaconvertedmats/metalfloor001a")
+            holoScale(133,vec(1.25,1.25,3))
+            holoParent(133,RotDisc )
+        #Debug  
+        if(Debug==1)
+            {
+                holoCreate(130)
+                holoModel(130,"models/sprops/misc/alphanum/alphanum_3.mdl")
+                holoAng(130,RotDisc:toWorld(ang(90,-90,0)))
+                holoPos(130,RotDisc:toWorld(vec(58,-7,0)))
+                holoParent(130,RotDisc)
+                holoScale(130,vec(0.25,0.25,0.25))
+            }
+    #Barrel-4
+        #Tube
+            holoCreate(141)
+            holoModel(141,"models/props_lab/pipesystem02b.mdl")
+            holoAng(141,RotDisc:toWorld(ang(90,0,0)))
+            holoPos(141,RotDisc:toWorld(vec(29.75,-1.78,-1.874)))
+            holoMaterial(141,"gigaconvertedmats/metalstainless01")
+            holoColor(141,vec(183,183,183))
+            holoParent(141,RotDisc)
+        #Cap
+            holoCreate(142)
+            holoModel(142,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(142,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(142,RotDisc:toWorld(vec(58,-1.78,-1.874)))
+            holoMaterial(142,"gigaconvertedmats/metalcrate004d")
+            holoColor(142,vec(183,183,183))
+            holoScale(142,vec(1.5,1.5,1.5))
+            holoParent(142,RotDisc )
+        #Brace
+            holoCreate(143)
+            holoModel(143,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(143,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(143,RotDisc:toWorld(vec(40,-1.78,-1.874)))
+            holoMaterial(143,"gigaconvertedmats/metalfloor001a")
+            holoScale(143,vec(1.25,1.25,3))
+            holoParent(143,RotDisc )
+        #Debug  
+        if(Debug==1)
+            {
+                holoCreate(140)
+                holoModel(140,"models/sprops/misc/alphanum/alphanum_4.mdl")
+                holoAng(140,RotDisc:toWorld(ang(-225,-90,0)))
+                holoPos(140,RotDisc:toWorld(vec(58,-4,-5)))
+                holoParent(140,RotDisc)
+                holoScale(140,vec(0.25,0.25,0.25))
+            }
+    #Barrel-5
+        #Tube
+            holoCreate(151)
+            holoModel(151,"models/props_lab/pipesystem02b.mdl")
+            holoAng(151,RotDisc:toWorld(ang(90,0,0)))
+            holoPos(151,RotDisc:toWorld(vec(29.75,0,-2.74)))
+            holoMaterial(151,"gigaconvertedmats/metalstainless01")
+            holoColor(151,vec(183,183,183))
+            holoParent(151,RotDisc)
+        #Cap
+            holoCreate(152)
+            holoModel(152,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(152,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(152,RotDisc:toWorld(vec(58,0,-2.74)))
+            holoMaterial(152,"gigaconvertedmats/metalcrate004d")
+            holoColor(152,vec(183,183,183))
+            holoScale(152,vec(1.5,1.5,1.5))
+            holoParent(152,RotDisc )
+        #Brace
+            holoCreate(153)
+            holoModel(153,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(153,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(153,RotDisc:toWorld(vec(40,0,-2.74)))
+            holoMaterial(153,"gigaconvertedmats/metalfloor001a")
+            holoScale(153,vec(1.25,1.25,3))
+            holoParent(153,RotDisc )
+        #Debug  
+        if(Debug==1)
+            {
+                holoCreate(150)
+                holoModel(150,"models/sprops/misc/alphanum/alphanum_5.mdl")
+                holoAng(150,RotDisc:toWorld(ang(180,-90,0)))
+                holoPos(150,RotDisc:toWorld(vec(58,0,-7)))
+                holoParent(150,RotDisc)
+                holoScale(150,vec(0.25,0.25,0.25))
+            }
+    #Barrel-6
+        #Tube
+            holoCreate(161)
+            holoModel(161,"models/props_lab/pipesystem02b.mdl")
+            holoAng(161,RotDisc:toWorld(ang(90,0,0)))
+            holoPos(161,RotDisc:toWorld(vec(29.75,1.78,-1.874)))
+            holoMaterial(161,"gigaconvertedmats/metalstainless01")
+            holoColor(161,vec(183,183,183))
+            holoParent(161,RotDisc)
+        #Cap
+            holoCreate(162)
+            holoModel(162,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(162,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(162,RotDisc:toWorld(vec(58,1.78,-1.874)))
+            holoMaterial(162,"gigaconvertedmats/metalcrate004d")
+            holoColor(162,vec(183,183,183))
+            holoScale(162,vec(1.5,1.5,1.5))
+            holoParent(162,RotDisc )
+        #Brace
+            holoCreate(163)
+            holoModel(163,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(163,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(163,RotDisc:toWorld(vec(40,1.78,-1.874)))
+            holoMaterial(163,"gigaconvertedmats/metalfloor001a")
+            holoScale(163,vec(1.25,1.25,3))
+            holoParent(163,RotDisc )
+        #Debug  
+        if(Debug==1)
+            {
+                holoCreate(160)
+                holoModel(160,"models/sprops/misc/alphanum/alphanum_6.mdl")
+                holoAng(160,RotDisc:toWorld(ang(225,-90,0)))
+                holoPos(160,RotDisc:toWorld(vec(58,4,-5)))
+                holoParent(160,RotDisc)
+                holoScale(160,vec(0.25,0.25,0.25))
+            } 
+    #Barrel-7
+        #Tube
+            holoCreate(171)
+            holoModel(171,"models/props_lab/pipesystem02b.mdl")
+            holoAng(171,RotDisc:toWorld(ang(90,0,0)))
+            holoPos(171,RotDisc:toWorld(vec(29.75,2.74,0)))
+            holoMaterial(171,"gigaconvertedmats/metalstainless01")
+            holoColor(171,vec(183,183,183))
+            holoParent(171,RotDisc)
+        #Cap
+            holoCreate(172)
+            holoModel(172,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(172,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(172,RotDisc:toWorld(vec(58,2.74,0)))
+            holoMaterial(172,"gigaconvertedmats/metalcrate004d")
+            holoColor(172,vec(183,183,183))
+            holoScale(172,vec(1.5,1.5,1.5))
+            holoParent(172,RotDisc )
+        #Brace
+            holoCreate(173)
+            holoModel(173,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(173,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(173,RotDisc:toWorld(vec(40,2.74,0)))
+            holoMaterial(173,"gigaconvertedmats/metalfloor001a")
+            holoScale(173,vec(1.25,1.25,3))
+            holoParent(173,RotDisc )
+        #Debug  
+        if(Debug==1)
+            {
+                holoCreate(170)
+                holoModel(170,"models/sprops/misc/alphanum/alphanum_7.mdl")
+                holoAng(170,RotDisc:toWorld(ang(-90,-90,0)))
+                holoPos(170,RotDisc:toWorld(vec(58,7,0)))
+                holoParent(170,RotDisc)
+                holoScale(170,vec(0.25,0.25,0.25))
+            }
+    #Barrel-8
+        #Tube
+            holoCreate(181)
+            holoModel(181,"models/props_lab/pipesystem02b.mdl")
+            holoAng(181,RotDisc:toWorld(ang(90,0,0)))
+            holoPos(181,RotDisc:toWorld(vec(29.75,1.78,1.874)))
+            holoMaterial(181,"gigaconvertedmats/metalstainless01")
+            holoColor(181,vec(183,183,183))
+            holoParent(181,RotDisc)
+        #Cap
+            holoCreate(182)
+            holoModel(182,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(182,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(182,RotDisc:toWorld(vec(58,1.78,1.874)))
+            holoMaterial(182,"gigaconvertedmats/metalcrate004d")
+            holoColor(182,vec(183,183,183))
+            holoScale(182,vec(1.5,1.5,1.5))
+            holoParent(182,RotDisc )
+        #Brace
+            holoCreate(183)
+            holoModel(183,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+            holoAng(183,RotDisc:toWorld(ang(0,-90,-90)))
+            holoPos(183,RotDisc:toWorld(vec(40,1.78,1.874)))
+            holoMaterial(183,"gigaconvertedmats/metalfloor001a")
+            holoScale(183,vec(1.25,1.25,3))
+            holoParent(183,RotDisc )
+        #Debug  
+        if(Debug==1)
+            {
+                holoCreate(180)
+                holoModel(180,"models/sprops/misc/alphanum/alphanum_8.mdl")
+                holoAng(180,RotDisc:toWorld(ang(-45,-90,0)))
+                holoPos(180,RotDisc:toWorld(vec(58,4,5)))
+                holoParent(180,RotDisc)
+                holoScale(180,vec(0.25,0.25,0.25))
+            }
+### Fittings ### ----------------------------------------------------------------------------------------------------------
+    #FirstFitting
+        holoCreate(201)
+        holoModel(201,"models/sprops/cylinders/size_4/cylinder_9x3.mdl")
+        holoAng(201,RotDisc:toWorld(ang(0,90,90)))
+        holoPos(201,RotDisc:toWorld(vec(24.75,0,0)))
+        holoMaterial(201,"gigaconvertedmats/metalfloor001a")
+        holoParent(201,RotDisc)
+        holoScale(201,vec(0.82,0.82,0.75))
+    #LastFitting
+        holoCreate(202)
+        holoModel(202,"models/sprops/cylinders/size_4/cylinder_9x3.mdl")
+        holoAng(202,RotDisc:toWorld(ang(0,90,90)))
+        holoPos(202,RotDisc:toWorld(vec(54,0,0)))
+        holoMaterial(202,"gigaconvertedmats/metalfloor001a")
+        holoParent(202,RotDisc)
+        holoScale(202,vec(0.82,0.82,0.75))
+    #MidFitting-1
+        holoCreate(203)
+        holoModel(203,"models/sprops/cylinders/size_4/cylinder_9x3.mdl")
+        holoAng(203,RotDisc:toWorld(ang(0,90,90)))
+        holoPos(203,RotDisc:toWorld(vec(51,0,0)))
+        holoMaterial(203,"gigaconvertedmats/metalfloor001a")
+        holoParent(203,RotDisc)
+        holoScale(203,vec(0.82,0.82,0.4))
+    #MidFitting-2
+        holoCreate(204)
+        holoModel(204,"models/sprops/cylinders/size_4/cylinder_9x3.mdl")
+        holoAng(204,RotDisc:toWorld(ang(0,90,90)))
+        holoPos(204,RotDisc:toWorld(vec(49,0,0)))
+        holoMaterial(204,"gigaconvertedmats/metalfloor001a")
+        holoParent(204,RotDisc)
+        holoScale(204,vec(0.82,0.82,0.4))
+
+}
+
+###{SKJ}###----------------------------------------------------------------------------------------------------------------
